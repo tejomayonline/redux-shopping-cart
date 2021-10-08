@@ -4,8 +4,7 @@ import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
 
 function App() {
-  const isCartActive = useSelector((state) => state.cart.showModal);
-  console.log({ isCartActive });
+  const isCartActive = useSelector((state) => state.cartUIUpdate.showModal);
   return (
     <Layout>
       {isCartActive && <Cart />}

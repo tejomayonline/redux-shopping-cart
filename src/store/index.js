@@ -1,69 +1,12 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
-
-const initialCartState = {
-  showModal: false,
-  items: [],
-};
-
-const cartSlice = createSlice({
-  name: "cart",
-  initialState: initialCartState,
-  reducers: {
-    toggleCart(state) {
-      state.showModal = !state.showModal;
-    },
-    addItem(state, { payload }) {
-      // find or create product array
-      const productIndex = state.items.findIndex(
-        (item) => item.id === payload.id
-      );
-      if (productIndex > -1) {
-        state.items[productIndex] = {
-          ...state.items[productIndex],
-          count: state.items[productIndex].count + 1,
-          totalPrice: Math.floor(
-            state.items[productIndex].totalPrice + payload.price
-          ),
-        };
-      } else {
-        state.items.push({
-          id: payload.id,
-          title: payload.title,
-          count: 1,
-          price: payload.price,
-          totalPrice: payload.price,
-        });
-      }
-    },
-
-    removeItem(state, { payload: id }) {
-      const productIndex = state.items.findIndex((item) => item.id === id);
-      if (productIndex > -1) {
-        if (state.items[productIndex].count > 0) {
-          state.items[productIndex] = {
-            ...state.items[productIndex],
-            count: state.items[productIndex].count - 1,
-            totalPrice: Math.floor(
-              state.items[productIndex].totalPrice -
-                state.items[productIndex].price
-            ),
-          };
-        } else {
-          state.items.splice(productIndex, 1);
-        }
-      } else {
-        console.log("Item does not exist");
-      }
-    },
-  },
-});
+import { configureStore } from "@reduxjs/toolkit";
+import cartSlice from "./cart-slice";
+import cartUIUpdateSlice from "./cart-ui-update-slice";
 
 const store = configureStore({
   reducer: {
     cart: cartSlice.reducer,
+    cartUIUpdate: cartUIUpdateSlice.reducer,
   },
 });
 
 export default store;
-
-export const cartActions = cartSlice.actions;
