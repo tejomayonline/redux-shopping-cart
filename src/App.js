@@ -8,20 +8,19 @@ import uploadCart from "./store/cart-actions";
 
 function App() {
   const isCartActive = useSelector((state) => state.ui.showModal);
-  const cartItems = useSelector((state) => state.cart.items);
+  const cart = useSelector((state) => state.cart);
   const notification = useSelector((state) => state.ui.notification);
   const dispatch = useDispatch();
   useEffect(() => {
     console.log("useEffect APP runing...");
-    if (cartItems.length > 0) {
-      dispatch(uploadCart(cartItems));
+    if (cart.items.length > 0 && cart.changed) {
+      dispatch(uploadCart(cart.items));
     }
-  }, [cartItems, dispatch]);
+  }, [cart, dispatch]);
   return (
     <Layout>
       {notification && <Notification {...notification} />}
       {isCartActive && <Cart />}
-
       <Products />
     </Layout>
   );

@@ -4,6 +4,7 @@ const cartSlice = createSlice({
   name: "cart",
   initialState: {
     items: [],
+    changed: false,
   },
   reducers: {
     addItem(state, { payload }) {
@@ -28,10 +29,12 @@ const cartSlice = createSlice({
           totalPrice: payload.price,
         });
       }
+      state.changed = true;
     },
 
     updateCart(state, { payload: cart }) {
       state.items.push(...cart);
+      state.changed = false;
     },
     removeItem(state, { payload: id }) {
       const productIndex = state.items.findIndex((item) => item.id === id);
@@ -51,6 +54,7 @@ const cartSlice = createSlice({
       } else {
         console.log("Item does not exist");
       }
+      state.changed = true;
     },
   },
 });
