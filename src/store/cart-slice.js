@@ -30,6 +30,9 @@ const cartSlice = createSlice({
       }
     },
 
+    updateCart(state, { payload: cart }) {
+      state.items.push(...cart);
+    },
     removeItem(state, { payload: id }) {
       const productIndex = state.items.findIndex((item) => item.id === id);
       if (productIndex > -1) {

@@ -4,7 +4,7 @@ import Cart from "./components/Cart/Cart";
 import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
 import Notification from "./components/UI/Notification";
-import uploadCart from "./store/cart-action-creator";
+import uploadCart from "./store/cart-actions";
 
 function App() {
   const isCartActive = useSelector((state) => state.ui.showModal);
@@ -19,8 +19,9 @@ function App() {
   }, [cartItems, dispatch]);
   return (
     <Layout>
-      {isCartActive && <Cart />}
       {notification && <Notification {...notification} />}
+      {isCartActive && <Cart />}
+
       <Products />
     </Layout>
   );
