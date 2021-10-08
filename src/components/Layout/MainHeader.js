@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { cartUIUpdateActions } from "../../store/cart-ui-update-slice";
+import { uiActions } from "../../store/ui-slice";
 import CartButton from "../Cart/CartButton";
 import classes from "./MainHeader.module.css";
 
@@ -7,7 +7,7 @@ const MainHeader = (props) => {
   const dispatch = useDispatch();
 
   const showCart = () => {
-    dispatch(cartUIUpdateActions.toggleCart());
+    dispatch(uiActions.toggleCart());
   };
 
   return (
